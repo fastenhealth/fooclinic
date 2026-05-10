@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FooClinic Patient Portal</title>
+    <style>
+      :root {
+        --accent: #4f46e5;
+        --accent-dark: #3730a3;
+        --ink: #111827;
+        --muted: #64748b;
+        --line: #dbe4ef;
+        --page: #f6f8fb;
+        --panel: #eef7f6;
+        --surface: #ffffff;
+        --success: #0f766e;
+        --success-dark: #1f662e;
+        --test-red: #b91c1c;
+        --test-red-dark: #7f1d1d;
+        --test-red-soft: #fee2e2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: var(--ink);
+        background: linear-gradient(180deg, var(--panel) 0 58%, var(--page) 58% 100%);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      a {
+        color: var(--success-dark);
+        font-weight: 70;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .test-banner {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        min-height: 44px;
+        padding: 0.65rem 1rem;
+        color: #ffffff;
+        background: var(--test-red);
+        font-size: 0.94rem;
+        font-weight: 70;
+        text-align: center;
+      }
+
+      .test-banner svg {
+        width: 1.1rem;
+        height: 1.1rem;
+        flex: 0 0 auto;
+      }
+
+      .page {
+        position: relative;
+        min-height: calc(100vh - 44px);
+        overflow: hidden;
+      }
+
+      .page::after {
+        content: "";
+        position: absolute;
+        left: -8vw;
+        right: -8vw;
+        top: 38%;
+        height: 25vw;
+        min-height: 170px;
+        max-height: 280px;
+        border-radius: 50% 50% 0 0;
+        background: var(--page);
+        z-index: 0;
+      }
+
+      .page-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: min(100%, 1120px);
+        min-height: calc(100vh - 44px);
+        margin: 0 auto;
+        padding: 1.4rem 1.25rem 1.6rem;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 2.65rem;
+        height: 2.65rem;
+        place-items: center;
+        border-radius: 0.65rem;
+        color: #ffffff;
+        background: var(--success);
+      }
+
+      .brand-mark svg {
+        width: 1.45rem;
+        height: 1.45rem;
+      }
+
+      .brand-name {
+        color: #0f172a;
+        font-size: 1.5rem;
+        font-weight: 80;
+        line-height: 1;
+      }
+
+      .portal-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(340px, 392px);
+        align-items: center;
+        gap: clamp(2rem, 7vw, 5rem);
+        padding: 2rem 0 1.5rem;
+      }
+
+      .info-panel {
+        max-width: 610px;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.85rem;
+        color: var(--success-dark);
+        font-size: 0.85rem;
+        font-weight: 80;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        color: #111827;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 12ch;
+        font-size: clamp(2.6rem, 7vw, 4.35rem);
+        font-weight: 82;
+        line-height: 1.06;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+        font-weight: 80;
+        line-height: 1.15;
+      }
+
+      .intro {
+        max-width: 34rem;
+        margin: 1rem 0 1.35rem;
+        color: #475569;
+        font-size: 1.05rem;
+        line-height: 1.58;
+      }
+
+      .task-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.72rem 1rem;
+        max-width: 40rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .task-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.65rem;
+        color: #1f2937;
+        font-size: 0.95rem;
+        line-height: 1.35;
+      }
+
+      .task-icon {
+        display: grid;
+        width: 1.55rem;
+        height: 1.55rem;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 999px;
+        color: var(--success);
+        background: #ffffff;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+      }
+
+      .task-icon svg {
+        width: 0.9rem;
+        height: 0.9rem;
+      }
+
+      .signin-card {
+        width: 100%;
+        border: 1px solid rgba(219, 228, 239, 0.95);
+        border-radius: 0.45rem;
+        background: var(--surface);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.13);
+        padding: 1.6rem 1.6rem 1.45rem;
+      }
+
+      .mode-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        border: 1px solid var(--panel);
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+        color: var(--success-dark);
+        background: var(--panel);
+        font-size: 0.8rem;
+        font-weight: 75;
+      }
+
+      .signin-copy {
+        margin: 0.55rem 0 1.35rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.45rem;
+        margin-bottom: 1rem;
+      }
+
+      label {
+        color: #1f2937;
+        font-size: 0.92rem;
+        font-weight: 70;
+      }
+
+      input {
+        width: 100%;
+        min-height: 3.2rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.35rem;
+        padding: 0.75rem 0.95rem;
+        color: #0f172a;
+        background: #ffffff;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input::placeholder {
+        color: #94a3b8;
+      }
+
+      input:focus {
+        border-color: var(--success);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.16);
+      }
+
+      .signin-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 3.15rem;
+        margin-top: 0.35rem;
+        border: 0;
+        border-radius: 0.35rem;
+        color: #ffffff;
+        background: var(--success);
+        font-size: 1rem;
+        font-weight: 80;
+        cursor: pointer;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .signin-button:hover {
+        background: var(--success-dark);
+        box-shadow: 0 10px 24px rgba(79, 70, 229, 0.2);
+      }
+
+      .login-links {
+        display: grid;
+        gap: 0.7rem;
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .recovery-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.4rem;
+        flex-wrap: wrap;
+      }
+
+      .test-note {
+        margin: 1rem 0 0;
+        border: 1px solid var(--test-red-soft);
+        border-radius: 0.4rem;
+        padding: 0.75rem 0.85rem;
+        color: var(--test-red-dark);
+        background: #fff7f7;
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .status {
+        min-height: 1.35rem;
+        margin: 1rem 0 0;
+        color: var(--success);
+        font-size: 0.9rem;
+        font-weight: 70;
+        line-height: 1.4;
+      }
+
+      .status:empty {
+        margin-top: 0;
+      }
+
+      .footer {
+        display: grid;
+        gap: 0.55rem;
+        justify-items: center;
+        padding-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.84rem;
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      @media (max-width: 820px) {
+        body {
+          background: var(--page);
+        }
+
+        .page::after {
+          display: none;
+        }
+
+        .page-inner {
+          display: block;
+        }
+
+        .portal-layout {
+          grid-template-columns: 1fr;
+          align-items: start;
+          gap: 1.5rem;
+          padding: 1.75rem 0;
+        }
+
+        .info-panel {
+          max-width: none;
+        }
+
+        h1 {
+          max-width: none;
+        }
+
+        .signin-card {
+          max-width: 460px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .test-banner {
+          align-items: flex-start;
+          justify-content: flex-start;
+          text-align: left;
+        }
+
+        .task-list {
+          grid-template-columns: 1fr;
+        }
+
+        .signin-card {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-banner" role="alert">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M14 2v6a2 2 0 0 0 .25 1l5.5 10A2 2 0 0 1 18 22H6a2 2 0 0 1-1.75-3l5.5-10A2 2 0 0 0 10 8V2"></path>
+        <path d="M6.5 15h11"></path>
+        <path d="M8.5 2h7"></path>
+      </svg>
+      TEST MODE - Use a test patient account only. Do not enter real personal or health information.
+    </div>
+
+    <main class="page">
+      <div class="page-inner">
+        <header class="brand" aria-label="FooClinic Patient Portal">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 4h8v16H8z"></path>
+              <path d="M10 9h4"></path>
+              <path d="M12 7v4"></path>
+              <path d="M10 15h4"></path>
+            </svg>
+          </div>
+          <div class="brand-name">FooClinic</div>
+        </header>
+
+        <section class="portal-layout" aria-labelledby="page-title">
+          <div class="info-panel">
+            <p class="eyebrow">Patient portal</p>
+            <h1 id="page-title">Manage your care from anywhere</h1>
+            <p class="intro">Sign in to keep up with your health information and everyday care needs.</p>
+
+            <ul class="task-list" aria-label="Common patient portal tasks">
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                View upcoming appointments and visit details
+              </li>
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                Send secure messages to your care team
+              </li>
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                Review lab results and clinical notes
+              </li>
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                Request prescription refills
+              </li>
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                Pay bills and download visit summaries
+              </li>
+              <li>
+                <span class="task-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="m5 12 4 4L19 6"></path>
+                  </svg>
+                </span>
+                Update your contact and insurance details
+              </li>
+            </ul>
+          </div>
+
+          <form class="signin-card" id="signin-form" aria-labelledby="signin-title">
+            <div class="mode-pill">Demo patient portal</div>
+            <h2 id="signin-title">Sign in</h2>
+            <p class="signin-copy">Enter your test account information to continue.</p>
+
+            <div class="field">
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" autocomplete="username" placeholder="demo.patient" required>
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            </div>
+
+            <button class="signin-button" type="submit">Login</button>
+
+            <div class="login-links">
+              <a href="#">Login with mobile phone number</a>
+              <div class="recovery-links">
+                <a href="#">Recover password</a>
+                <a href="#">Recover username</a>
+              </div>
+            </div>
+
+            <p class="test-note">This sample portal accepts test credentials only and does not connect to a real care team.</p>
+            <p class="status" id="signin-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <footer class="footer">
+          <div>Need help signing in? Contact your care team or portal support.</div>
+          <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Need Help?</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("signin-form");
+      const status = document.getElementById("signin-status");
+      const button = form.querySelector("button[type='submit']");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        button.textContent = "Signed in";
+        status.textContent = "Signed in. Your demo patient dashboard would open next.";
+      });
+    </script>
+  </body>
+</html>
