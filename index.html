@@ -790,7 +790,7 @@
 
       const scopeDescriptions = {
         offline_access: { title: "Stay signed in", desc: "Maintain connection without re-entering credentials" },
-        "patient/*.read": { title: "Read your health records", desc: "Claims, coverage, prescriptions, lab results, and diagnoses" },
+        "patient/*.read": { title: "Read your health records", desc: "Conditions, prescriptions, lab results, and claims" },
         "patient/*.write": { title: "Write health data", desc: "Create or update medical records" },
         "patient/Patient.read": { title: "Patient demographics", desc: "Name, address, contact info" },
         "patient/ExplanationOfBenefit.read": { title: "Claims and EOBs", desc: "Medical claims and explanation of benefits" },
@@ -1014,15 +1014,12 @@
       }
 
       function setConsentAppInfo() {
-        let displayName = "This application";
+        let displayName = "Fasten Health";
         let host = "FooClinic";
 
         if (oauthParams.redirectUri) {
           try {
             const url = new URL(oauthParams.redirectUri);
-            const parts = url.hostname.split(".").filter(Boolean);
-            const appName = parts.length >= 2 ? parts[parts.length - 2] : parts[0] || url.hostname;
-            displayName = appName.charAt(0).toUpperCase() + appName.slice(1);
             host = url.hostname;
           } catch (err) {
             // Keep the generic consent copy when redirect_uri is not a valid URL.
