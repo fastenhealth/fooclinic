@@ -228,6 +228,10 @@
         padding: 1.6rem 1.6rem 1.45rem;
       }
 
+      .hidden {
+        display: none !important;
+      }
+
       .mode-pill {
         display: inline-flex;
         align-items: center;
@@ -247,6 +251,10 @@
         color: var(--muted);
         font-size: 0.95rem;
         line-height: 1.5;
+      }
+
+      .auth-step {
+        margin-top: 1.35rem;
       }
 
       .field {
@@ -282,6 +290,21 @@
         box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.16);
       }
 
+      .checkbox-field {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin: 0.25rem 0 1rem;
+        color: #334155;
+        font-size: 0.92rem;
+      }
+
+      .checkbox-field input {
+        width: 1rem;
+        min-height: 1rem;
+        accent-color: var(--success);
+      }
+
       .signin-button {
         display: inline-flex;
         align-items: center;
@@ -304,19 +327,35 @@
         box-shadow: 0 10px 24px rgba(79, 70, 229, 0.2);
       }
 
-      .login-links {
-        display: grid;
-        gap: 0.7rem;
-        margin-top: 1rem;
-        text-align: center;
-        font-size: 0.9rem;
+      .signin-button:disabled,
+      .secondary-button:disabled {
+        cursor: wait;
+        opacity: 0.7;
       }
 
-      .recovery-links {
-        display: flex;
+      .secondary-button {
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
-        gap: 1.4rem;
-        flex-wrap: wrap;
+        min-height: 3.2rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.35rem;
+        padding: 0 0.85rem;
+        color: #0f172a;
+        background: #ffffff;
+        font-weight: 75;
+        cursor: pointer;
+      }
+
+      .secondary-button:hover {
+        border-color: var(--success);
+        color: var(--success-dark);
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.7rem;
       }
 
       .test-note {
@@ -330,17 +369,146 @@
         line-height: 1.45;
       }
 
-      .status {
-        min-height: 1.35rem;
+      .error-message {
         margin: 1rem 0 0;
-        color: var(--success);
+        border: 1px solid #fecaca;
+        border-radius: 0.4rem;
+        padding: 0.75rem 0.85rem;
+        color: var(--test-red-dark);
+        background: #fff7f7;
         font-size: 0.9rem;
-        font-weight: 70;
+        line-height: 1.45;
+      }
+
+      .mfa-qr {
+        display: block;
+        width: min(100%, 220px);
+        margin: 0 auto 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.4rem;
+        padding: 0.65rem;
+        background: #ffffff;
+      }
+
+      .profile-list,
+      .scope-list {
+        display: grid;
+        gap: 0.7rem;
+        margin-bottom: 1rem;
+      }
+
+      .profile-option {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.75rem;
+        align-items: start;
+        border: 1px solid var(--line);
+        border-radius: 0.4rem;
+        padding: 0.85rem;
+        cursor: pointer;
+      }
+
+      .profile-option:has(input:checked) {
+        border-color: var(--success);
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+      }
+
+      .profile-option input {
+        width: 1rem;
+        min-height: 1rem;
+        margin-top: 0.2rem;
+        accent-color: var(--success);
+      }
+
+      .profile-name,
+      .scope-item-title {
+        color: #111827;
+        font-size: 0.95rem;
+        font-weight: 80;
+      }
+
+      .profile-project,
+      .scope-item-desc,
+      .scope-empty {
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.84rem;
         line-height: 1.4;
       }
 
-      .status:empty {
-        margin-top: 0;
+      .scope-app {
+        margin: 0 0 1rem;
+        color: #475569;
+        font-size: 0.92rem;
+        line-height: 1.45;
+      }
+
+      .scope-app strong {
+        color: #111827;
+      }
+
+      .scope-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.7rem;
+        align-items: start;
+        border: 1px solid var(--line);
+        border-radius: 0.4rem;
+        padding: 0.85rem;
+      }
+
+      .scope-icon {
+        display: grid;
+        width: 1.5rem;
+        height: 1.5rem;
+        place-items: center;
+        border-radius: 999px;
+        color: var(--success);
+        background: var(--panel);
+      }
+
+      .scope-icon svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .success-state {
+        display: grid;
+        gap: 0.7rem;
+        justify-items: center;
+        padding: 1.1rem 0 0.3rem;
+        text-align: center;
+      }
+
+      .success-icon {
+        display: grid;
+        width: 3rem;
+        height: 3rem;
+        place-items: center;
+        border-radius: 999px;
+        color: #ffffff;
+        background: var(--success);
+      }
+
+      .success-icon svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+
+      .loading {
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.55rem;
+        border: 2px solid rgba(255, 255, 255, 0.45);
+        border-top-color: #ffffff;
+        border-radius: 999px;
+        animation: spin 0.75s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
 
       .footer {
@@ -406,6 +574,10 @@
 
         .signin-card {
           padding: 1.25rem;
+        }
+
+        .button-row {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -492,34 +664,74 @@
             </ul>
           </div>
 
-          <form class="signin-card" id="signin-form" aria-labelledby="signin-title">
+          <div class="signin-card" aria-labelledby="auth-title">
             <div class="mode-pill">Demo patient portal</div>
-            <h2 id="signin-title">Sign in</h2>
+            <h2 id="auth-title">Sign In</h2>
             <p class="signin-copy">Enter your test account information to continue.</p>
 
-            <div class="field">
-              <label for="username">Username</label>
-              <input id="username" name="username" type="text" autocomplete="username" placeholder="demo.patient" required>
-            </div>
-
-            <div class="field">
-              <label for="password">Password</label>
-              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-            </div>
-
-            <button class="signin-button" type="submit">Login</button>
-
-            <div class="login-links">
-              <a href="#">Login with mobile phone number</a>
-              <div class="recovery-links">
-                <a href="#">Recover password</a>
-                <a href="#">Recover username</a>
+            <form class="auth-step" id="signin-form">
+              <div class="field">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" placeholder="demo.patient" required>
               </div>
+
+              <div class="field">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+              </div>
+
+              <label class="checkbox-field" for="remember">
+                <input id="remember" name="remember" type="checkbox" checked>
+                Remember this device
+              </label>
+
+              <button class="signin-button" id="signin-submit" type="submit">Sign In</button>
+            </form>
+
+            <form class="auth-step hidden" id="mfa-form">
+              <p class="signin-copy" id="mfa-info">Enter the 6-digit code from your authenticator app.</p>
+              <img class="mfa-qr hidden" id="mfa-qr" alt="Two-factor authentication QR code">
+
+              <div class="field">
+                <label for="mfa-token">Authentication code</label>
+                <input id="mfa-token" name="mfa-token" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456" required>
+              </div>
+
+              <button class="signin-button" id="mfa-submit" type="submit">Verify</button>
+            </form>
+
+            <form class="auth-step hidden" id="profile-form">
+              <p class="signin-copy">Choose the account you want to use for this session.</p>
+              <div class="profile-list" id="profile-list"></div>
+              <button class="signin-button" id="profile-submit" type="submit">Continue</button>
+            </form>
+
+            <form class="auth-step hidden" id="scope-form">
+              <p class="scope-app">
+                <strong id="consent-app-name">This application</strong>
+                <span> wants access through </span>
+                <span id="consent-app-url">FooClinic</span>.
+              </p>
+              <p class="signin-copy">Approve the requested access for <span id="consent-app-name-inline">this application</span>.</p>
+              <div class="scope-list" id="scope-list"></div>
+              <div class="button-row">
+                <button class="secondary-button" id="consent-deny" type="button">Deny</button>
+                <button class="signin-button" id="scope-submit" type="submit">Authorize Access</button>
+              </div>
+            </form>
+
+            <div class="auth-step hidden success-state" id="success-state" role="status" aria-live="polite">
+              <div class="success-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <path d="m5 12 4 4L19 6"></path>
+                </svg>
+              </div>
+              <p class="signin-copy" id="success-copy">Authentication complete. Redirecting...</p>
             </div>
 
-            <p class="test-note">This sample portal accepts test credentials only and does not connect to a real care team.</p>
-            <p class="status" id="signin-status" role="status" aria-live="polite"></p>
-          </form>
+            <p class="test-note">This sample portal accepts test credentials only. Do not enter real personal or health information.</p>
+            <p class="error-message hidden" id="error-message" role="alert"></p>
+          </div>
         </section>
 
         <footer class="footer">
@@ -533,14 +745,558 @@
     </main>
 
     <script>
-      const form = document.getElementById("signin-form");
-      const status = document.getElementById("signin-status");
-      const button = form.querySelector("button[type='submit']");
+      const CONFIG = {
+        baseUrl: "https://api.medplum.com",
+        projectId: "d9198ade-89ff-4b91-9ecb-ec87a04fb884",
+        clientId: "8cc07a4c-f469-4046-84fe-a4d9db76dd83",
+      };
 
-      form.addEventListener("submit", (event) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const oauthParams = {
+        responseType: urlParams.get("response_type"),
+        clientId: urlParams.get("client_id") || CONFIG.clientId,
+        codeChallenge: urlParams.get("code_challenge"),
+        codeChallengeMethod: urlParams.get("code_challenge_method"),
+        redirectUri: urlParams.get("redirect_uri"),
+        scope: urlParams.get("scope") || "openid",
+        state: urlParams.get("state"),
+        nonce: urlParams.get("nonce"),
+        aud: urlParams.get("aud"),
+        launch: urlParams.get("launch"),
+      };
+
+      const authState = {
+        email: null,
+        login: null,
+        codeVerifier: null,
+        codeChallenge: null,
+        mfaEnroll: false,
+        scopeSelected: false,
+        pendingCode: null,
+        allScopes: [],
+      };
+
+      const signinForm = document.getElementById("signin-form");
+      const mfaForm = document.getElementById("mfa-form");
+      const profileForm = document.getElementById("profile-form");
+      const scopeForm = document.getElementById("scope-form");
+      const successState = document.getElementById("success-state");
+      const authTitle = document.getElementById("auth-title");
+      const errorMessage = document.getElementById("error-message");
+      const successCopy = document.getElementById("success-copy");
+      const authSteps = [signinForm, mfaForm, profileForm, scopeForm, successState];
+
+      const hiddenScopes = new Set(["openid", "fhirUser", "profile", "launch/patient"]);
+
+      const scopeDescriptions = {
+        offline_access: { title: "Stay signed in", desc: "Maintain connection without re-entering credentials" },
+        "patient/*.read": { title: "Read your health records", desc: "Claims, coverage, prescriptions, lab results, and diagnoses" },
+        "patient/*.write": { title: "Write health data", desc: "Create or update medical records" },
+        "patient/Patient.read": { title: "Patient demographics", desc: "Name, address, contact info" },
+        "patient/ExplanationOfBenefit.read": { title: "Claims and EOBs", desc: "Medical claims and explanation of benefits" },
+        "patient/Coverage.read": { title: "Coverage info", desc: "Insurance coverage details" },
+        "patient/Observation.read": { title: "Lab results", desc: "Lab tests and vital signs" },
+        "patient/Condition.read": { title: "Diagnoses", desc: "Medical conditions" },
+        "patient/MedicationRequest.read": { title: "Prescriptions", desc: "Medication history" },
+        "patient/Procedure.read": { title: "Procedures", desc: "Medical procedures" },
+        "patient/Immunization.read": { title: "Immunizations", desc: "Vaccination records" },
+        "patient/AllergyIntolerance.read": { title: "Allergies", desc: "Allergy information" },
+      };
+
+      function showError(message) {
+        errorMessage.textContent = message || "Something went wrong. Please try again.";
+        errorMessage.classList.remove("hidden");
+      }
+
+      function hideError() {
+        errorMessage.textContent = "";
+        errorMessage.classList.add("hidden");
+      }
+
+      function showForm(form, title) {
+        authSteps.forEach((step) => step.classList.add("hidden"));
+        form.classList.remove("hidden");
+        if (title) {
+          authTitle.textContent = title;
+        }
+      }
+
+      function setButtonLoading(button, loading, loadingText, defaultText) {
+        button.disabled = loading;
+        button.setAttribute("aria-busy", loading ? "true" : "false");
+        if (loading) {
+          button.innerHTML = `<span class="loading" aria-hidden="true"></span>${loadingText}`;
+        } else {
+          button.textContent = defaultText;
+        }
+      }
+
+      async function readResponseJson(response) {
+        const text = await response.text();
+        if (!text) {
+          return {};
+        }
+
+        try {
+          return JSON.parse(text);
+        } catch (err) {
+          return { error: text };
+        }
+      }
+
+      function getErrorMessage(result, fallback) {
+        return (
+          result?.issue?.[0]?.details?.text ||
+          result?.error_description ||
+          result?.error ||
+          result?.message ||
+          fallback
+        );
+      }
+
+      async function apiRequest(endpoint, data) {
+        const response = await fetch(`${CONFIG.baseUrl}/${endpoint}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await readResponseJson(response);
+
+        if (!response.ok) {
+          throw new Error(getErrorMessage(result, "Request failed"));
+        }
+
+        return result;
+      }
+
+      function base64UrlEncode(bytes) {
+        let binary = "";
+        bytes.forEach((byte) => {
+          binary += String.fromCharCode(byte);
+        });
+        return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+      }
+
+      async function generateCodeVerifier() {
+        if (!window.crypto?.getRandomValues) {
+          throw new Error("A secure browser context is required to sign in.");
+        }
+
+        const array = new Uint8Array(32);
+        window.crypto.getRandomValues(array);
+        return base64UrlEncode(array);
+      }
+
+      async function generateCodeChallenge(verifier) {
+        if (!window.crypto?.subtle) {
+          throw new Error("A secure browser context is required to sign in.");
+        }
+
+        const data = new TextEncoder().encode(verifier);
+        const digest = await window.crypto.subtle.digest("SHA-256", data);
+        return base64UrlEncode(new Uint8Array(digest));
+      }
+
+      async function initPKCE() {
+        authState.codeVerifier = await generateCodeVerifier();
+        authState.codeChallenge = await generateCodeChallenge(authState.codeVerifier);
+        sessionStorage.setItem("codeVerifier", authState.codeVerifier);
+      }
+
+      async function handleAuthResponse(response) {
+        hideError();
+
+        if (response.login) {
+          authState.login = response.login;
+        }
+
+        if (response.mfaEnrollRequired && response.enrollQrCode) {
+          const qrImage = document.getElementById("mfa-qr");
+          document.getElementById("mfa-info").textContent =
+            "Scan this QR code with your authenticator app, then enter the 6-digit code below.";
+          qrImage.src = response.enrollQrCode;
+          qrImage.classList.remove("hidden");
+          authState.mfaEnroll = true;
+          showForm(mfaForm, "Set Up Two-Factor Authentication");
+          document.getElementById("mfa-token").focus();
+          return;
+        }
+
+        if (response.mfaRequired) {
+          document.getElementById("mfa-info").textContent =
+            "Enter the 6-digit code from your authenticator app to continue.";
+          document.getElementById("mfa-qr").classList.add("hidden");
+          authState.mfaEnroll = false;
+          showForm(mfaForm, "Verify Your Identity");
+          document.getElementById("mfa-token").focus();
+          return;
+        }
+
+        if (response.memberships && response.memberships.length > 1) {
+          renderProfiles(response.memberships);
+          showForm(profileForm, "Select Account");
+          return;
+        }
+
+        if (response.code) {
+          if (oauthParams.scope !== "openid" && !authState.scopeSelected) {
+            renderScopes(oauthParams.scope);
+            authState.pendingCode = response.code;
+            showForm(scopeForm, "Authorize Access");
+            return;
+          }
+
+          await completeAuth(response.code);
+        }
+      }
+
+      async function completeAuth(code) {
+        if (oauthParams.redirectUri) {
+          const redirectUrl = new URL(oauthParams.redirectUri);
+          redirectUrl.searchParams.set("code", code);
+
+          if (oauthParams.state) {
+            redirectUrl.searchParams.set("state", oauthParams.state);
+          }
+
+          successCopy.textContent = "Authentication complete. Redirecting...";
+          showForm(successState, "Success!");
+          setTimeout(() => {
+            window.location.href = redirectUrl.toString();
+          }, 1000);
+          return;
+        }
+
+        await exchangeCodeForToken(code);
+      }
+
+      function renderProfiles(memberships) {
+        const list = document.getElementById("profile-list");
+        list.replaceChildren();
+
+        memberships.forEach((membership, index) => {
+          const option = document.createElement("label");
+          option.className = "profile-option";
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = "membership";
+          input.value = membership.id || "";
+          input.checked = index === 0;
+
+          const info = document.createElement("div");
+          const name = document.createElement("div");
+          const project = document.createElement("div");
+          name.className = "profile-name";
+          project.className = "profile-project";
+          name.textContent = membership.profile?.display || "Member Account";
+          project.textContent = membership.project?.display || "Health Plan";
+
+          info.append(name, project);
+          option.append(input, info);
+          list.append(option);
+        });
+      }
+
+      function getScopeInfo(scope) {
+        if (scopeDescriptions[scope]) {
+          return scopeDescriptions[scope];
+        }
+
+        const match = scope.match(/^patient\/([A-Za-z]+)\.(read|write|\*)$/);
+        if (match) {
+          const resource = match[1];
+          const action = match[2] === "read" ? "Read" : match[2] === "write" ? "Write" : "Access";
+          return { title: `${action} ${resource} data`, desc: `${action} your ${resource} records` };
+        }
+
+        return { title: scope, desc: "Access this data type" };
+      }
+
+      function setConsentAppInfo() {
+        let displayName = "This application";
+        let host = "FooClinic";
+
+        if (oauthParams.redirectUri) {
+          try {
+            const url = new URL(oauthParams.redirectUri);
+            const parts = url.hostname.split(".").filter(Boolean);
+            const appName = parts.length >= 2 ? parts[parts.length - 2] : parts[0] || url.hostname;
+            displayName = appName.charAt(0).toUpperCase() + appName.slice(1);
+            host = url.hostname;
+          } catch (err) {
+            // Keep the generic consent copy when redirect_uri is not a valid URL.
+          }
+        }
+
+        document.getElementById("consent-app-name").textContent = displayName;
+        document.getElementById("consent-app-name-inline").textContent = displayName;
+        document.getElementById("consent-app-url").textContent = host;
+      }
+
+      function renderScopes(scopeString) {
+        const allScopes = (scopeString || "openid").split(" ").filter(Boolean);
+        const scopes = allScopes.filter((scope) => !hiddenScopes.has(scope));
+        const list = document.getElementById("scope-list");
+
+        setConsentAppInfo();
+        list.replaceChildren();
+
+        if (scopes.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "scope-empty";
+          empty.textContent = "Basic sign-in access only.";
+          list.append(empty);
+        } else {
+          scopes.forEach((scope) => {
+            const info = getScopeInfo(scope);
+            const item = document.createElement("div");
+            const icon = document.createElement("span");
+            const content = document.createElement("div");
+            const title = document.createElement("div");
+            const desc = document.createElement("div");
+
+            item.className = "scope-item";
+            icon.className = "scope-icon";
+            title.className = "scope-item-title";
+            desc.className = "scope-item-desc";
+            icon.innerHTML =
+              '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+            title.textContent = info.title;
+            desc.textContent = info.desc;
+
+            content.append(title, desc);
+            item.append(icon, content);
+            list.append(item);
+          });
+        }
+
+        authState.allScopes = allScopes;
+      }
+
+      async function exchangeCodeForToken(code) {
+        const params = new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          client_id: oauthParams.clientId || "",
+          redirect_uri: window.location.origin,
+        });
+        const codeVerifier = sessionStorage.getItem("codeVerifier");
+
+        if (codeVerifier) {
+          params.append("code_verifier", codeVerifier);
+        }
+
+        const response = await fetch(`${CONFIG.baseUrl}/oauth2/token`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: params.toString(),
+        });
+        const result = await readResponseJson(response);
+
+        if (!response.ok) {
+          throw new Error(getErrorMessage(result, "Token exchange failed"));
+        }
+
+        localStorage.setItem("medplum_access_token", result.access_token);
+        if (result.refresh_token) {
+          localStorage.setItem("medplum_refresh_token", result.refresh_token);
+        }
+
+        successCopy.textContent = "Welcome back. Redirecting...";
+        showForm(successState, "Welcome Back!");
+
+        setTimeout(() => {
+          window.location.href = getSafeNextUrl();
+        }, 2000);
+      }
+
+      function getSafeNextUrl() {
+        const next = new URLSearchParams(window.location.search).get("next");
+        if (!next) {
+          return "/";
+        }
+
+        try {
+          const target = new URL(next, window.location.href);
+          if (target.origin === window.location.origin) {
+            return target.toString();
+          }
+        } catch (err) {
+          // Fall through to the default page.
+        }
+
+        return "/";
+      }
+
+      signinForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        button.textContent = "Signed in";
-        status.textContent = "Signed in. Your demo patient dashboard would open next.";
+        hideError();
+
+        const submitButton = document.getElementById("signin-submit");
+        setButtonLoading(submitButton, true, "Signing in...", "Sign In");
+
+        try {
+          authState.email = document.getElementById("username").value.trim();
+          const authMethod = await apiRequest("auth/method", { email: authState.email });
+
+          if (authMethod.authorizeUrl) {
+            await initPKCE();
+            const url = new URL(authMethod.authorizeUrl);
+            url.searchParams.set(
+              "state",
+              JSON.stringify({
+                projectId: CONFIG.projectId,
+                clientId: oauthParams.clientId,
+                scope: oauthParams.scope,
+                codeChallenge: oauthParams.codeChallenge || authState.codeChallenge,
+                codeChallengeMethod: oauthParams.codeChallengeMethod || "S256",
+              })
+            );
+            window.location.href = url.toString();
+            return;
+          }
+
+          let codeChallenge = oauthParams.codeChallenge;
+          let codeChallengeMethod = oauthParams.codeChallengeMethod;
+
+          if (!codeChallenge) {
+            await initPKCE();
+            codeChallenge = authState.codeChallenge;
+            codeChallengeMethod = "S256";
+          }
+
+          const response = await apiRequest("auth/login", {
+            email: authState.email,
+            password: document.getElementById("password").value,
+            remember: document.getElementById("remember").checked,
+            projectId: CONFIG.projectId || undefined,
+            clientId: oauthParams.clientId || undefined,
+            scope: oauthParams.scope,
+            codeChallenge,
+            codeChallengeMethod,
+            nonce: oauthParams.nonce || undefined,
+            launch: oauthParams.launch || undefined,
+          });
+
+          await handleAuthResponse(response);
+        } catch (err) {
+          showError(err.message);
+        } finally {
+          setButtonLoading(submitButton, false, "Signing in...", "Sign In");
+        }
+      });
+
+      mfaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        hideError();
+
+        const submitButton = document.getElementById("mfa-submit");
+        setButtonLoading(submitButton, true, "Verifying...", "Verify");
+
+        try {
+          const endpoint = authState.mfaEnroll ? "auth/mfa/login-enroll" : "auth/mfa/verify";
+          const response = await apiRequest(endpoint, {
+            login: authState.login,
+            token: document.getElementById("mfa-token").value.trim(),
+          });
+
+          await handleAuthResponse(response);
+        } catch (err) {
+          showError(err.message);
+        } finally {
+          setButtonLoading(submitButton, false, "Verifying...", "Verify");
+        }
+      });
+
+      profileForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        hideError();
+
+        const submitButton = document.getElementById("profile-submit");
+        setButtonLoading(submitButton, true, "Loading...", "Continue");
+
+        try {
+          const selected = document.querySelector('input[name="membership"]:checked');
+          if (!selected) {
+            throw new Error("Please select an account.");
+          }
+
+          const response = await apiRequest("auth/profile", {
+            login: authState.login,
+            profile: selected.value,
+          });
+
+          await handleAuthResponse(response);
+        } catch (err) {
+          showError(err.message);
+        } finally {
+          setButtonLoading(submitButton, false, "Loading...", "Continue");
+        }
+      });
+
+      document.getElementById("consent-deny").addEventListener("click", () => {
+        if (oauthParams.redirectUri) {
+          const redirectUrl = new URL(oauthParams.redirectUri);
+          redirectUrl.searchParams.set("error", "access_denied");
+          redirectUrl.searchParams.set("error_description", "User denied the authorization request");
+          if (oauthParams.state) {
+            redirectUrl.searchParams.set("state", oauthParams.state);
+          }
+          window.location.href = redirectUrl.toString();
+          return;
+        }
+
+        showForm(signinForm, "Member Sign In");
+      });
+
+      scopeForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        hideError();
+
+        const submitButton = document.getElementById("scope-submit");
+        setButtonLoading(submitButton, true, "Authorizing...", "Authorize Access");
+
+        try {
+          const response = await apiRequest("auth/scope", {
+            login: authState.login,
+            scope: (authState.allScopes.length ? authState.allScopes : [oauthParams.scope]).join(" "),
+          });
+
+          authState.scopeSelected = true;
+
+          if (response.code) {
+            await completeAuth(response.code);
+          } else {
+            await handleAuthResponse(response);
+          }
+        } catch (err) {
+          showError(err.message);
+        } finally {
+          setButtonLoading(submitButton, false, "Authorizing...", "Authorize Access");
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get("error");
+        const code = params.get("code");
+
+        if (error) {
+          showError(params.get("error_description") || error);
+          window.history.replaceState({}, "", window.location.pathname);
+          return;
+        }
+
+        if (code) {
+          try {
+            await exchangeCodeForToken(code);
+          } catch (err) {
+            showError(err.message);
+          } finally {
+            window.history.replaceState({}, "", window.location.pathname);
+          }
+        }
       });
     </script>
   </body>
