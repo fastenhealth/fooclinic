@@ -667,12 +667,38 @@
             <form class="auth-step" id="signin-form">
               <div class="field">
                 <label for="username">Username</label>
-                <input id="username" name="username" type="text" autocomplete="username" placeholder="demo.patient" required>
+                <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        autocomplete="username"
+                        list="username-suggestions"
+                        placeholder="annegoodwin@fooclinic.com"
+                        required
+                >
+                <datalist id="username-suggestions">
+                  <option value="annegoodwin@fooclinic.com"></option>
+                  <option value="salinatesfay@fooclinic.com"></option>
+                  <option value="sydneyphar@fooclinic.com"></option>
+                  <option value="aaronreichert@fooclinic.com"></option>
+                  <option value="alexmarvin@fooclinic.com"></option>
+                  <option value="betsyjohnson@fooclinic.com"></option>
+                  <option value="earlcarrillo@fooclinic.com"></option>
+                  <option value="johndoe@fooclinic.com"></option>
+                  <option value="marcellaschumm@fooclinic.com"></option>
+                  <option value="markusward@fooclinic.com"></option>
+                  <option value="patricianoelle@fooclinic.com"></option>
+                  <option value="seasonoconnell@fooclinic.com"></option>
+                  <option value="spencerthompson@fooclinic.com"></option>
+                  <option value="williamsim@fooclinic.com"></option>
+                  <option value="wilmanader@fooclinic.com"></option>
+                  <option value="aletaortiz@fooclinic.com"></option>
+                </datalist>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password (f00clinic)" required>
               </div>
 
               <label class="checkbox-field" for="remember">
@@ -724,7 +750,10 @@
               <p class="signin-copy" id="success-copy">Authentication complete. Redirecting...</p>
             </div>
 
-            <p class="test-note">This sample portal accepts test credentials only. Do not enter real personal or health information.</p>
+            <p class="test-note">This sample portal accepts test credentials only. Do not enter real personal or health information.
+            <br/>
+              Usernames can be found <a href="https://docs.connect.fastenhealth.com/guides/test-data">here</a>. Password will always be <code>f00clinic</code>.
+            </p>
             <p class="error-message hidden" id="error-message" role="alert"></p>
           </div>
         </section>
